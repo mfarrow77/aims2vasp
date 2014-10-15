@@ -20,7 +20,7 @@ if [ $1 == geometry.in ]; then
    cell=`grep lattice_vector $1 | wc -l`
    if [ $cell > 0 ]; then
       echo "Bulk system detected" 
-      grep lattice_vector $1 | awk '{print $2,$3,$4}' >> POSCAR.vasp
+      grep awk /$1~lattice_vector/ '{print $2,$3,$4}' >> POSCAR.vasp
    else
       echo "50.000 0.0000 0.0000" >> POSCAR.vasp
       echo "0.000 50.000 0.0000" >> POSCAR.vasp
