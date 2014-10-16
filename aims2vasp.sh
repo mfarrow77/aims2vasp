@@ -10,7 +10,6 @@ if [ -f POSCAR.vasp ] ;then
    echo "POSCAR.vasp already exists, moving to POSCAR.vasp.old"
    mv POSCAR.vasp POSCAR.vasp.old
 fi
-
 #  First create the header
 echo "# POSCAR created from aim2vasp from FHI-aims system" > POSCAR.vasp
 echo "1.0000000" >> POSCAR.vasp
@@ -20,7 +19,7 @@ if [ $1 == geometry.in ]; then
    cell=`grep lattice_vector $1 | wc -l`
    if [ $cell > 0 ]; then
       echo "Bulk system detected" 
-      grep awk /$1~lattice_vector/ '{print $2,$3,$4}' >> POSCAR.vasp
+      awk '/lattice_vector/ {print $2,$3,$4}' $1 >> POSCAR.vasp
    else
       echo "50.000 0.0000 0.0000" >> POSCAR.vasp
       echo "0.000 50.000 0.0000" >> POSCAR.vasp
